@@ -137,22 +137,17 @@ function Page() {
         </div>
         <div className="ml-[350px] flex flex-col gap-4">
           {posts?.map(
-            (post: {
-              id: number;
-              desc: string;
-              media_url: string;
-              date: string;
-              name: string;
-              profileImage: string | null;
-            }) => {
+            (post: any) => {
               return (
                 <Post
-                  key={post.id}
+                  key={post.postId}
+                  postId={post.postId}
+                  userId={post.id}
+                  profileImage={post.profileImage}
                   name={post.name}
                   caption={post.desc}
                   mediaUrl={post.media_url}
                   postDate={post.date}
-                  profileImage={post.profileImage}
                 />
               );
             }

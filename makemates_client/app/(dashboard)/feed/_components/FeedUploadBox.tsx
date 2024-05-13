@@ -16,8 +16,7 @@ import {
   DialogClose,
 } from "@/components/ui/dialog";
 
-import { FaImages } from "react-icons/fa";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { app } from "@/firebase.js";
 import {
   getDownloadURL,
@@ -40,12 +39,17 @@ function FeedUploadBox() {
   const formRef = useRef<HTMLFormElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
 
+  const queryclient = useQueryClient();
+
   const mutation = useMutation<NewPost, Error, NewPost>({
     mutationFn: (newPost: NewPost) => {
       return axios.post("http://localhost:5000/posts", newPost, {
         withCredentials: true,
       });
     },
+    onSuccess : ()=> {
+      queryclient.invalidateQueries({queryKey : ["newPost"]})
+    }
   });
 
   const handleUploadPost = async (e: React.FormEvent) => {

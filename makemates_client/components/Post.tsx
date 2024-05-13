@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
+import axios from "axios";
+import { AuthContext } from "@/context/AuthContext";
+import { SendIcon } from "lucide-react";
+import { Comments } from "./Comments";
 
 function Post({
   caption,
@@ -9,13 +13,55 @@ function Post({
   mediaUrl,
   postDate,
   profileImage,
+  postId,
+  userId
 }: {
   caption: string;
   mediaUrl: string;
   postDate: string;
   name: string;
   profileImage: string | null;
+  postId : number;
+  userId : number;
 }) {
+
+  const {currentUser}: any = useContext(AuthContext)
+
+  const [isPostLiked, setIsPostLiked] = useState(false);
+  const [commentBox, setCommentBox] = useState(false)
+
+
+  const handlePostLike = async () => {
+
+    if(!isPostLiked) {
+      try {
+        await axios.post("http://localhost:5000/posts/like", {postId}, {withCredentials : true})
+        setIsPostLiked(true)
+      } catch (error:any) {
+        console.log(error.reponse.data)
+      }
+    } else {
+        try {
+          await axios.post("http://localhost:5000/posts/unlike", {postId}, {withCredentials : true})
+          setIsPostLiked(false)
+        } catch(error:any) {
+          console.log(error.response.data)
+        }
+    }
+    
+  }
+
+
+  useEffect(() => {
+    console.log("Inside UseEffect")  
+    const checkLikeStatus = async function(){ 
+          const response = await axios.post("http://localhost:5000/posts/likedPost", {postId}, {withCredentials : true})
+          setIsPostLiked(response.data)
+      } 
+      checkLikeStatus()
+      console.log(isPostLiked)
+  }, [])
+
   return (
     <div className="flex flex-col w-full rounded-md shadow-lg bg-slate-50">
       <div className="w-full p-2 ">
@@ -56,12 +102,18 @@ function Post({
         />
       </div>
       <div className="flex p-2 gap-2">
-        <Button variant={"ghost"}>12 Likes</Button>
-        <Button variant={"ghost"}>5 Comments</Button>
-        <Button variant={"ghost"}>3 Shares</Button>
+        <Button variant={"ghost"} onClick={handlePostLike}>{ isPostLiked ? "Liked" : "Like"}</Button>
+        <Button variant={"ghost"} onClick={() => setCommentBox(!commentBox)}>5 Comments</Button>
+      </div>
+      
+      <div className="">  
+        
+        {commentBox && <Comments postId={postId}/> }
+        
       </div>
     </div>
   );
 }
+
 
 export default Post;

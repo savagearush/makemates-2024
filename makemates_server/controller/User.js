@@ -19,11 +19,13 @@ export function login(req, res) {
         const hashedPassword = user.password;
 
         bcrypt.compare(req.body.password, hashedPassword, (err, valid) => {
+          
           if (err) {
-            return res.status(401).send("Incorrect Password");
+            return res.status(400).send(err);
           }
 
           console.log("Valid...", valid);
+          
           if (valid) {
             const token = jwt.sign(
               { id: user.id },
@@ -41,6 +43,9 @@ export function login(req, res) {
               })
               .status(200)
               .send({ id: user.id });
+          }
+          else {
+            return res.status(401).send("Incorrect Password")
           }
         });
       } else {
@@ -60,7 +65,7 @@ export function register(req, res) {
     [req.body.email],
     (err, result) => {
       if (err)
-        return res.status(400).send("Something went wrong! Try again later");
+        return res.status(400).send(err);
 
       if (result.length) {
         return res.status(401).send("User already exist.");
@@ -78,13 +83,11 @@ export function register(req, res) {
         dob: `${req.body.day} ${req.body.month} ${req.body.year}`,
       };
 
-      console.log(newUser);
-
       DB.query(
         "INSERT INTO users (name, email, password, gender, dob) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%d %M %Y'))",
         [...Object.values(newUser)],
         (err, result) => {
-          if (err) return res.status(401).send(err);
+          if (err) return res.status(400).send(err);
 
           const token = jwt.sign(
             { id: result.insertId },

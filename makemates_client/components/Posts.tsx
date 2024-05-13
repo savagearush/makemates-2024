@@ -11,6 +11,7 @@ function Posts() {
     queryFn: fetchUserPosts,
   });
 
+  console.log(data)
   const router = useRouter();
 
   if (isPending) {
@@ -27,12 +28,16 @@ function Posts() {
     return <span>Error: {error.message}</span>;
   }
 
+  console.log(data)
   return (
     <div className="w-full flex flex-col gap-4">
       {data.map((post: any) => {
         return (
+          
           <Post
-            key={`${post.id}`}
+            key={post.postId}
+            postId={post.postId}
+            userId={post.id}
             profileImage={post.profileImage}
             name={post.name}
             caption={post.desc}

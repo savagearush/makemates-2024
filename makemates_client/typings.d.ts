@@ -18,10 +18,16 @@ export interface LoginInputType {
   password: string;
 }
 
-export type AuthContextType = {
-  currentUser: { _id: string };
+export interface AuthContextType {
+  currentUser: any;
   setCurrentUser: Dispatch<any>;
   userSignUp: (inputs: SignUpInputType) => void;
   userLogin: (inputs: LoginInputType) => void; // Correct type
   userLogout: () => void;
 };
+
+
+export interface NewComment  {
+  desc : string;
+  postId : number;
+}

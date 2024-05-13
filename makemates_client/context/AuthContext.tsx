@@ -1,8 +1,10 @@
 "use client";
+
+import { createContext, useEffect, useState } from "react";
 import { CreateNewUser, SignInUser, LogOutUser } from "@/axios.config";
 import { AuthContextType, LoginInputType, SignUpInputType } from "@/typings";
-import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -11,51 +13,46 @@ export default function AuthContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(window.localStorage.getItem("user") || "{}")
-  );
-
+  
+  const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
+
   const userSignUp = async (inputs: SignUpInputType) => {
     try {
-      const response = await CreateNewUser(inputs);
-      if (response.status === 200) {
-        setCurrentUser({ id: response.id }); // Set current user state
-        router.push("/feed");
-      }
-    } catch (error) {
-      // Handle error
-      console.log("Account doesn't created...", error);
+      const response = await CreateNewUser(inputs);      
+      router.push("/feed");
+    } catch (error:any) {
+      toast.error(error.response.data)
     }
   };
 
   const userLogin = async (inputs: LoginInputType) => {
-    // Correct type
     try {
       const response = await SignInUser(inputs);
-      console.log(response);
-      setCurrentUser({ id: response.id }); // Set current user state
       router.push("/feed");
-    } catch (error) {
-      // Handle error
-      console.error(error);
+    } catch (error : any) {
+      toast.error(error.response.data)
     }
   };
-
+  
   const userLogout = async () => {
     const response = await LogOutUser();
-    setCurrentUser({});
+    router.push("/")
   };
 
+  // this will check on page reload if user is saved in LS
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
-    console.log("Current user : ", currentUser);
-  }, [currentUser]);
+    const loggedUser = window.localStorage.getItem("currentUser")
+    if(loggedUser) {
+      setCurrentUser(JSON.parse(loggedUser))
+    }
+  }, [])
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, setCurrentUser, userLogin, userSignUp, userLogout }}
-    >
+      value={{currentUser, setCurrentUser, userLogin, userSignUp, userLogout }}
+
+>
       {children}
     </AuthContext.Provider>
   );
