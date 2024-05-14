@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import auth from "./middleware/auth.js";
 const app = express();
 dotenv.config();
+import db from "./db/db.js";
 
 app.use(
   cors({
