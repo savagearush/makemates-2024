@@ -196,7 +196,7 @@ function UpdateProfilePhoto({ value }: { value: string }) {
 
             {currentPage == "img-cropped" && (
               <div className="flex items-center justify-center">
-                <img src={imgAfterCrop} className="cropped-img" width="200" />
+                <img src={imgAfterCrop} className="cropped-img" width="200" alt="Cropped Image" />
               </div>
             )}
           </div>

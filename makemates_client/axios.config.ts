@@ -4,8 +4,12 @@ import { LoginInputType, SignUpInputType } from "./typings";
 const API_ENDPOINT = "http://localhost:5000";
 
 export async function CreateNewUser(inputData: SignUpInputType) {
-  const { data } = await axios.post(API_ENDPOINT + "/user/register", inputData);
-  return data;
+  const response = await axios.post(
+    API_ENDPOINT + "/user/register",
+    inputData,
+    { withCredentials: true }
+  );
+  return response;
 }
 
 export async function SignInUser(inputData: LoginInputType) {
@@ -22,8 +26,8 @@ export async function getUserDataById() {
   return data;
 }
 
-export async function fetchUserPosts() {
-  const { data } = await axios.get(API_ENDPOINT + "/posts", {
+export async function fetchUserPosts(userId: any) {
+  const { data } = await axios.get(API_ENDPOINT + "/posts/" + userId, {
     withCredentials: true,
   });
 

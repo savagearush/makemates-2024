@@ -63,7 +63,7 @@ export function Comments({ postId }: { postId: any }) {
         {allComments &&
           allComments.map((cmnt: any) => {
             return (
-              <p>
+              <p key={cmnt.id}>
                 {cmnt.name} - {cmnt.desc}
               </p>
             );

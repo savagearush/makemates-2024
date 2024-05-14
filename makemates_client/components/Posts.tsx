@@ -5,13 +5,12 @@ import Post from "./Post";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-function Posts() {
+function Posts({ userId }: { userId: number }) {
   const { isPending, isError, data, error }: any = useQuery({
     queryKey: ["newPost"],
-    queryFn: fetchUserPosts,
+    queryFn: () => fetchUserPosts(userId),
   });
 
-  console.log(data)
   const router = useRouter();
 
   if (isPending) {
@@ -28,12 +27,11 @@ function Posts() {
     return <span>Error: {error.message}</span>;
   }
 
-  console.log(data)
+  console.log(data);
   return (
     <div className="w-full flex flex-col gap-4">
       {data.map((post: any) => {
         return (
-          
           <Post
             key={post.postId}
             postId={post.postId}

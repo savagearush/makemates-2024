@@ -13,16 +13,16 @@ export default function AuthContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  
   const [currentUser, setCurrentUser] = useState(null);
   const router = useRouter();
 
   const userSignUp = async (inputs: SignUpInputType) => {
     try {
-      const response = await CreateNewUser(inputs);      
-      router.push("/feed");
-    } catch (error:any) {
-      toast.error(error.response.data)
+      const response = await CreateNewUser(inputs);
+      console.log("SignUp Wala : ", response);
+       router.push("/feed");
+    } catch (error: any) {
+      toast.error(error.response.data);
     }
   };
 
@@ -30,29 +30,29 @@ export default function AuthContextProvider({
     try {
       const response = await SignInUser(inputs);
       router.push("/feed");
-    } catch (error : any) {
-      toast.error(error.response.data)
+    } catch (error: any) {
+      toast.error(error.response.data);
     }
   };
-  
+
   const userLogout = async () => {
     const response = await LogOutUser();
-    router.push("/")
+    window.localStorage.removeItem("currentUser");
+    router.push("/");
   };
 
   // this will check on page reload if user is saved in LS
   useEffect(() => {
-    const loggedUser = window.localStorage.getItem("currentUser")
-    if(loggedUser) {
-      setCurrentUser(JSON.parse(loggedUser))
+    const loggedUser = window.localStorage.getItem("currentUser");
+    if (loggedUser) {
+      setCurrentUser(JSON.parse(loggedUser));
     }
-  }, [])
+  }, []);
 
   return (
     <AuthContext.Provider
-      value={{currentUser, setCurrentUser, userLogin, userSignUp, userLogout }}
-
->
+      value={{ currentUser, setCurrentUser, userLogin, userSignUp, userLogout }}
+    >
       {children}
     </AuthContext.Provider>
   );

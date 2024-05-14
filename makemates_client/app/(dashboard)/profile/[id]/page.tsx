@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Post from "@/components/Post";
 import { useFollowed } from "@/hooks/isFriend";
+import Posts from "@/components/Posts";
 
 function Page() {
   const { id } = useParams();
@@ -41,7 +42,7 @@ function Page() {
         route.push("/");
       }
     }
-  }, [checkFollowStatus]);
+  }, [checkFollowStatus, id, route]);
 
   const handleFollow = async () => {
     try {
@@ -136,22 +137,7 @@ function Page() {
           </div>
         </div>
         <div className="ml-[350px] flex flex-col gap-4">
-          {posts?.map(
-            (post: any) => {
-              return (
-                <Post
-                  key={post.postId}
-                  postId={post.postId}
-                  userId={post.id}
-                  profileImage={post.profileImage}
-                  name={post.name}
-                  caption={post.desc}
-                  mediaUrl={post.media_url}
-                  postDate={post.date}
-                />
-              );
-            }
-          )}
+          <Posts userId={Number(id)} />
         </div>
       </div>
     );
