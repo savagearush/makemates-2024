@@ -8,7 +8,7 @@ function useFriendList() {
     const getList = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:5000/user/friendList",
+          `${process.env.API_ENDPOINT}/user/friendList`,
           { withCredentials: true }
         );
 

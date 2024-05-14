@@ -1,19 +1,21 @@
-import { Button } from '@/components/ui/button';
-import axios from 'axios';
-import React, { useRef, useState } from 'react'
-import toast from 'react-hot-toast';
+import { Button } from "@/components/ui/button";
+import axios from "axios";
+import React, { useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 function UpdateState({ value }: { value: string }) {
-
   const [input, setInput] = useState(value);
   const [edit, setEdit] = useState(false);
   const [defaultValue, setDefaultValue] = useState(value);
   const [error, setError] = useState<any>(null);
 
   const handleUpdate = async () => {
-
     try {
-      const response = await axios.post("http://localhost:5000/user/update", { key: "state", value: input }, { withCredentials: true })
+      const response = await axios.post(
+        `${process.env.API_ENDPOINT}/user/update`,
+        { key: "state", value: input },
+        { withCredentials: true }
+      );
       if (response.status === 200) {
         setDefaultValue(input);
         toast.success(response.data);
@@ -23,21 +25,42 @@ function UpdateState({ value }: { value: string }) {
     }
 
     setEdit(!edit);
-  }
+  };
 
   return (
-    <div className='space-y-2 border-b-1 border-b-black flex items-center justify-between'>
-      <label className='font-semibold text-md' htmlFor="name">State</label>
-      {!edit && <><p className=''>{defaultValue}</p><Button onClick={() => setEdit(prev => !prev)} variant={"link"}>Edit</Button></>}
-      {edit && <div className='flex gap-1'>
-        <input type="text" placeholder='Enter new State' className='p-1 rounded-lg' name="state" onChange={(e) => setInput(e.target.value)} value={input} />
-        <Button onClick={handleUpdate} variant={"link"}>Update</Button>
-        <Button onClick={() => setEdit(!edit)} variant={"link"}>cancel</Button>
-      </div>}
+    <div className="space-y-2 border-b-1 border-b-black flex items-center justify-between">
+      <label className="font-semibold text-md" htmlFor="name">
+        State
+      </label>
+      {!edit && (
+        <>
+          <p className="">{defaultValue}</p>
+          <Button onClick={() => setEdit((prev) => !prev)} variant={"link"}>
+            Edit
+          </Button>
+        </>
+      )}
+      {edit && (
+        <div className="flex gap-1">
+          <input
+            type="text"
+            placeholder="Enter new State"
+            className="p-1 rounded-lg"
+            name="state"
+            onChange={(e) => setInput(e.target.value)}
+            value={input}
+          />
+          <Button onClick={handleUpdate} variant={"link"}>
+            Update
+          </Button>
+          <Button onClick={() => setEdit(!edit)} variant={"link"}>
+            cancel
+          </Button>
+        </div>
+      )}
       {error && <p>{error}</p>}
     </div>
-
-  )
+  );
 }
 
 export default UpdateState;

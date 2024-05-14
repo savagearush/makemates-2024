@@ -1,7 +1,7 @@
 import axios from "axios";
 import { LoginInputType, SignUpInputType } from "./typings";
 
-const API_ENDPOINT = "http://localhost:5000";
+const API_ENDPOINT = process.env.API_ENDPOINT;
 
 export async function CreateNewUser(inputData: SignUpInputType) {
   const response = await axios.post(

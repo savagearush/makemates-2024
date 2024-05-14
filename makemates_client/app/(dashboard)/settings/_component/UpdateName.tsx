@@ -13,7 +13,7 @@ function UpdateName({ value }: { value: string }) {
   const handleUpdate = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/user/update",
+        `${process.env.API_ENDPOINT}/user/update`,
         { key: "name", value: input },
         { withCredentials: true }
       );

@@ -43,13 +43,13 @@ function FeedUploadBox() {
 
   const mutation = useMutation<NewPost, Error, NewPost>({
     mutationFn: (newPost: NewPost) => {
-      return axios.post("http://localhost:5000/posts", newPost, {
+      return axios.post(`${process.env.API_ENDPOINT}/posts`, newPost, {
         withCredentials: true,
       });
     },
-    onSuccess : ()=> {
-      queryclient.invalidateQueries({queryKey : ["newPost"]})
-    }
+    onSuccess: () => {
+      queryclient.invalidateQueries({ queryKey: ["newPost"] });
+    },
   });
 
   const handleUploadPost = async (e: React.FormEvent) => {

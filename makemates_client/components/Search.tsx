@@ -16,7 +16,7 @@ function Search() {
     setTimeout(async () => {
       try {
         const res = await axios.post(
-          "http://localhost:5000/search/user",
+          `${process.env.API_ENDPOINT}/search/user`,
           {
             keyword,
           },

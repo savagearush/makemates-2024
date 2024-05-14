@@ -33,7 +33,7 @@ function Post({
     if (!isPostLiked) {
       try {
         await axios.post(
-          "http://localhost:5000/posts/like",
+          `${process.env.API_ENDPOINT}/posts/like`,
           { postId },
           { withCredentials: true }
         );
@@ -44,7 +44,7 @@ function Post({
     } else {
       try {
         await axios.post(
-          "http://localhost:5000/posts/unlike",
+          `${process.env.API_ENDPOINT}/posts/unlike`,
           { postId },
           { withCredentials: true }
         );
@@ -59,7 +59,7 @@ function Post({
     console.log("Inside UseEffect");
     const checkLikeStatus = async function () {
       const response = await axios.post(
-        "http://localhost:5000/posts/likedPost",
+        `${process.env.API_ENDPOINT}/posts/likedPost`,
         { postId },
         { withCredentials: true }
       );

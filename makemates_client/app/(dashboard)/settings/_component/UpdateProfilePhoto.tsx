@@ -127,7 +127,7 @@ function UpdateProfilePhoto({ value }: { value: string }) {
 
               axios
                 .post(
-                  "http://localhost:5000/user/setProfilePic",
+                  `${process.env.API_ENDPOINT}/user/setProfilePic`,
                   {
                     profileImgUrl: downloadURL,
                   },
@@ -196,7 +196,12 @@ function UpdateProfilePhoto({ value }: { value: string }) {
 
             {currentPage == "img-cropped" && (
               <div className="flex items-center justify-center">
-                <img src={imgAfterCrop} className="cropped-img" width="200" alt="Cropped Image" />
+                <img
+                  src={imgAfterCrop}
+                  className="cropped-img"
+                  width="200"
+                  alt="Cropped Image"
+                />
               </div>
             )}
           </div>

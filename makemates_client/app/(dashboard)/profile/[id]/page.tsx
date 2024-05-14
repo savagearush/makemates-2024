@@ -23,7 +23,7 @@ function Page() {
     try {
       const getUserProfile = async () => {
         const response = await axios.post(
-          "http://localhost:5000/search/profile",
+          `${process.env.API_ENDPOINT}/search/profile`,
           { id },
           { withCredentials: true }
         );
@@ -47,7 +47,7 @@ function Page() {
   const handleFollow = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/user/follow",
+        `${process.env.API_ENDPOINT}/user/follow`,
         {
           friendId: id,
         },
@@ -64,7 +64,7 @@ function Page() {
   const handleUnFollow = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/user/unfollow",
+        `${process.env.API_ENDPOINT}/user/unfollow`,
         {
           friendId: id,
         },

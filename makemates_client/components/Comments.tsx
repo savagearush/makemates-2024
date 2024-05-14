@@ -16,7 +16,7 @@ export function Comments({ postId }: { postId: any }) {
   const mutation = useMutation<NewComment, Error, NewComment>({
     mutationFn: (newComment) => {
       return axios.post(
-        "http://localhost:5000/posts/comments/add",
+        `${process.env.API_ENDPOINT}/posts/comments/add`,
         newComment,
         {
           withCredentials: true,
@@ -46,7 +46,7 @@ export function Comments({ postId }: { postId: any }) {
   async function fetchPostComments() {
     try {
       const response = await axios.get(
-        `http://localhost:5000/posts/comments/${postId}`,
+        `${process.env.API_ENDPOINT}/posts/comments/${postId}`,
         {
           withCredentials: true,
         }

@@ -20,7 +20,7 @@ export default function AuthContextProvider({
     try {
       const response = await CreateNewUser(inputs);
       console.log("SignUp Wala : ", response);
-       router.push("/feed");
+      router.push("/feed");
     } catch (error: any) {
       toast.error(error.response.data);
     }

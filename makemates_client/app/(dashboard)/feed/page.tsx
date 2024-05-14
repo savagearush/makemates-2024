@@ -55,7 +55,7 @@ function Page() {
 
   useEffect(() => {
     const getUserData = async () => {
-      const { data } = await axios.get("http://localhost:5000/user/me", {
+      const { data } = await axios.get(`${process.env.API_ENDPOINT}/user/me`, {
         withCredentials: true,
       });
       window.localStorage.setItem("currentUser", JSON.stringify(data));

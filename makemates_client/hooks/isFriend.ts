@@ -11,7 +11,7 @@ export function useFollowed(friendId: number) {
     const getResult = async () => {
       try {
         const res = await axios.post(
-          "http://localhost:5000/search/checkFollowed",
+          `${process.env.API_ENDPOINT}/search/checkFollowed`,
           { friendId },
           { withCredentials: true }
         );
@@ -28,4 +28,3 @@ export function useFollowed(friendId: number) {
 
   return isFollowed;
 }
-
