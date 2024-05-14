@@ -14,7 +14,7 @@ import db from "./db/db.js";
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://makemates-2024.vercel.app",
     credentials: true,
   })
 );
