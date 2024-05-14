@@ -19,13 +19,12 @@ export function login(req, res) {
         const hashedPassword = user.password;
 
         bcrypt.compare(req.body.password, hashedPassword, (err, valid) => {
-          
           if (err) {
             return res.status(400).send(err);
           }
 
           console.log("Valid...", valid);
-          
+
           if (valid) {
             const token = jwt.sign(
               { id: user.id },
@@ -43,9 +42,8 @@ export function login(req, res) {
               })
               .status(200)
               .send({ id: user.id });
-          }
-          else {
-            return res.status(401).send("Incorrect Password")
+          } else {
+            return res.status(401).send("Incorrect Password");
           }
         });
       } else {
@@ -64,8 +62,7 @@ export function register(req, res) {
     "SELECT email FROM users WHERE email = ?",
     [req.body.email],
     (err, result) => {
-      if (err)
-        return res.status(400).send(err);
+      if (err) return res.status(400).send(err);
 
       if (result.length) {
         return res.status(401).send("User already exist.");
@@ -102,6 +99,7 @@ export function register(req, res) {
           return res
             .cookie("x-auth-token", token, {
               httpOnly: true,
+              secure: false,
             })
             .status(200)
             .send({ id: result.insertId });
@@ -113,10 +111,13 @@ export function register(req, res) {
 
 export async function getUserData(req, res) {
   const { id } = req.user;
+  console.log("id", id);
+
   let query =
-    "SELECT * FROM users u LEFT JOIN profileimages p ON u.img = p.id WHERE u.id = ?";
+    "SELECT u.id, u.name, u.email, p.image_url FROM users u LEFT JOIN profileimages p ON u.img = p.id WHERE u.id = ?";
 
   DB.query(query, [id], (err, result) => {
+    console.log(result);
     if (err) return res.status(401).send(err);
     if (result.length) {
       result[0].password = "************";
@@ -263,7 +264,8 @@ export function setProfilePic(req, res) {
 }
 
 export function logoutUser(req, res) {
-  res.clearCookie("x-auth-token");
-  console.log("after clearning :", req.cookies);
-  return res.status(200).send("Logout Successfully..");
+  return res
+    .clearCookie("x-auth-token")
+    .status(200)
+    .send("Logout Successfully..");
 }

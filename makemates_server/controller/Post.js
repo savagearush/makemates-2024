@@ -24,22 +24,19 @@ export const addPost = (req, res) => {
 };
 
 export const getUserPosts = (req, res) => {
-  const { id } = req.user;
+  const { userId } = req.params;
   let query = `SELECT p.id AS postId, u.id, u.name, p.desc, pm.media_url, 
     p.date, pis.image_url AS profileImage FROM posts p JOIN post_media pm 
     ON p.id = pm.post_id JOIN users u ON u.id = p.user_id 
     LEFT JOIN profileimages pis ON u.img = pis.id WHERE p.user_id = ? ORDER BY date DESC;`;
 
-  if (id !== "" || id !== undefined || id !== null) {
-    DB.query(query, [id], (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send(err);
-      } else {
-        return res.status(200).send(result);
-      }
-    });
-  }
+  DB.query(query, [userId], (err, result) => {
+    if (err) {
+      return res.status(500).send(err);
+    } else {
+      return res.status(200).send(result);
+    }
+  });
 };
 
 export const likeThePost = (req, res) => {

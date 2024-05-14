@@ -8,7 +8,7 @@ import auth from "../middleware/auth.js";
 
 const router = Router();
 
-router.get("/", auth, getUserPosts);
+router.get("/:userId", auth, getUserPosts);
 router.post("/", auth, addPost);
 router.post("/like", auth, likeThePost);
 router.post("/unlike", auth, unLikeThePost);
