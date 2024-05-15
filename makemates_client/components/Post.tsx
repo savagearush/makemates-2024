@@ -6,6 +6,7 @@ import axios from "axios";
 import { AuthContext } from "@/context/AuthContext";
 import { SendIcon } from "lucide-react";
 import { Comments } from "./Comments";
+import { API_ENDPOINT } from "@/axios.config";
 
 function Post({
   caption,
@@ -33,7 +34,7 @@ function Post({
     if (!isPostLiked) {
       try {
         await axios.post(
-          `${process.env.API_ENDPOINT}/posts/like`,
+          `${API_ENDPOINT}/posts/like`,
           { postId },
           { withCredentials: true }
         );
@@ -44,7 +45,7 @@ function Post({
     } else {
       try {
         await axios.post(
-          `${process.env.API_ENDPOINT}/posts/unlike`,
+          `${API_ENDPOINT}/posts/unlike`,
           { postId },
           { withCredentials: true }
         );
@@ -59,7 +60,7 @@ function Post({
     console.log("Inside UseEffect");
     const checkLikeStatus = async function () {
       const response = await axios.post(
-        `${process.env.API_ENDPOINT}/posts/likedPost`,
+        `${API_ENDPOINT}/posts/likedPost`,
         { postId },
         { withCredentials: true }
       );

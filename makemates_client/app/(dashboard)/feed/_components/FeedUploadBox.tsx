@@ -27,6 +27,7 @@ import {
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { NewPost } from "@/typings";
 import { IoIosAddCircle } from "react-icons/io";
+import { API_ENDPOINT } from "@/axios.config";
 
 function FeedUploadBox() {
   const [desc, setDesc] = useState<string>("");
@@ -43,7 +44,7 @@ function FeedUploadBox() {
 
   const mutation = useMutation<NewPost, Error, NewPost>({
     mutationFn: (newPost: NewPost) => {
-      return axios.post(`${process.env.API_ENDPOINT}/posts`, newPost, {
+      return axios.post(`${API_ENDPOINT}/posts`, newPost, {
         withCredentials: true,
       });
     },

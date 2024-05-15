@@ -1,3 +1,4 @@
+import { API_ENDPOINT } from "@/axios.config";
 import { AuthContext } from "@/context/AuthContext";
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
@@ -11,7 +12,7 @@ export function useFollowed(friendId: number) {
     const getResult = async () => {
       try {
         const res = await axios.post(
-          `${process.env.API_ENDPOINT}/search/checkFollowed`,
+          `${API_ENDPOINT}/search/checkFollowed`,
           { friendId },
           { withCredentials: true }
         );

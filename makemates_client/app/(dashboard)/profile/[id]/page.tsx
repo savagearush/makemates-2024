@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import Post from "@/components/Post";
 import { useFollowed } from "@/hooks/isFriend";
 import Posts from "@/components/Posts";
+import { API_ENDPOINT } from "@/axios.config";
 
 function Page() {
   const { id } = useParams();
@@ -23,7 +24,7 @@ function Page() {
     try {
       const getUserProfile = async () => {
         const response = await axios.post(
-          `${process.env.API_ENDPOINT}/search/profile`,
+          `${API_ENDPOINT}/search/profile`,
           { id },
           { withCredentials: true }
         );
@@ -47,7 +48,7 @@ function Page() {
   const handleFollow = async () => {
     try {
       const res = await axios.post(
-        `${process.env.API_ENDPOINT}/user/follow`,
+        `${API_ENDPOINT}/user/follow`,
         {
           friendId: id,
         },
@@ -64,7 +65,7 @@ function Page() {
   const handleUnFollow = async () => {
     try {
       const res = await axios.post(
-        `${process.env.API_ENDPOINT}/user/unfollow`,
+        `${API_ENDPOINT}/user/unfollow`,
         {
           friendId: id,
         },

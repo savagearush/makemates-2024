@@ -1,3 +1,4 @@
+import { API_ENDPOINT } from "@/axios.config";
 import { AuthContext } from "@/context/AuthContext";
 import { NewComment } from "@/typings";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -15,13 +16,9 @@ export function Comments({ postId }: { postId: any }) {
 
   const mutation = useMutation<NewComment, Error, NewComment>({
     mutationFn: (newComment) => {
-      return axios.post(
-        `${process.env.API_ENDPOINT}/posts/comments/add`,
-        newComment,
-        {
-          withCredentials: true,
-        }
-      );
+      return axios.post(`${API_ENDPOINT}/posts/comments/add`, newComment, {
+        withCredentials: true,
+      });
     },
     onSuccess: () => {
       queryclient.invalidateQueries({ queryKey: ["newComment"] });
@@ -46,7 +43,7 @@ export function Comments({ postId }: { postId: any }) {
   async function fetchPostComments() {
     try {
       const response = await axios.get(
-        `${process.env.API_ENDPOINT}/posts/comments/${postId}`,
+        `${API_ENDPOINT}/posts/comments/${postId}`,
         {
           withCredentials: true,
         }

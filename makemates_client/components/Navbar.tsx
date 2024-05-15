@@ -34,7 +34,7 @@ interface navLinks {
 
 function Navbar() {
   const { userLogout } = useContext<any>(AuthContext);
- 
+
   const navigation = [
     {
       name: "feed",

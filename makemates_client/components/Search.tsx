@@ -1,3 +1,4 @@
+import { API_ENDPOINT } from "@/axios.config";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +17,7 @@ function Search() {
     setTimeout(async () => {
       try {
         const res = await axios.post(
-          `${process.env.API_ENDPOINT}/search/user`,
+          `${API_ENDPOINT}/search/user`,
           {
             keyword,
           },

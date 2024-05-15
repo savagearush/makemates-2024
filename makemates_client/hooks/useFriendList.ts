@@ -1,3 +1,4 @@
+import { API_ENDPOINT } from "@/axios.config";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
@@ -7,10 +8,9 @@ function useFriendList() {
   useEffect(() => {
     const getList = async () => {
       try {
-        const { data } = await axios.get(
-          `${process.env.API_ENDPOINT}/user/friendList`,
-          { withCredentials: true }
-        );
+        const { data } = await axios.get(`${API_ENDPOINT}/user/friendList`, {
+          withCredentials: true,
+        });
 
         setList(data);
       } catch (err) {

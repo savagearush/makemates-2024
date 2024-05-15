@@ -19,6 +19,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import axios from "axios";
+import { API_ENDPOINT } from "@/axios.config";
 
 const leftSidebarNavigations = [
   {
@@ -55,7 +56,7 @@ function Page() {
 
   useEffect(() => {
     const getUserData = async () => {
-      const { data } = await axios.get(`${process.env.API_ENDPOINT}/user/me`, {
+      const { data } = await axios.get(`${API_ENDPOINT}/user/me`, {
         withCredentials: true,
       });
       window.localStorage.setItem("currentUser", JSON.stringify(data));

@@ -1,8 +1,9 @@
 import axios from "axios";
 import { LoginInputType, SignUpInputType } from "./typings";
 
-const API_ENDPOINT = process.env.API_ENDPOINT;
+export const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
+console.log("API_ENDPOINT", API_ENDPOINT);
 export async function CreateNewUser(inputData: SignUpInputType) {
   const response = await axios.post(
     API_ENDPOINT + "/user/register",

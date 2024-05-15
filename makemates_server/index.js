@@ -10,11 +10,10 @@ import cookieParser from "cookie-parser";
 import auth from "./middleware/auth.js";
 const app = express();
 dotenv.config();
-import db from "./db/db.js";
 
 app.use(
   cors({
-    origin: "https://makemates-2024.vercel.app",
+    origin: ["https://makemates-2024.vercel.app", "http://localhost:3000"],
     credentials: true,
   })
 );
