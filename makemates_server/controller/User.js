@@ -39,6 +39,8 @@ export function login(req, res) {
             return res
               .cookie("x-auth-token", token, {
                 httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "None",
               })
               .status(200)
               .send({ id: user.id });
@@ -99,7 +101,8 @@ export function register(req, res) {
           return res
             .cookie("x-auth-token", token, {
               httpOnly: true,
-              secure: false,
+              secure: process.env.NODE_ENV === "production",
+              sameSite: "None",
             })
             .status(200)
             .send({ id: result.insertId });
