@@ -40,7 +40,7 @@ export function login(req, res) {
               .cookie("x-auth-token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
-                sameSite: "None",
+                // sameSite: "None",
               })
               .status(200)
               .send({ id: user.id });

@@ -148,7 +148,7 @@ function FeedUploadBox() {
               type="file"
               name="postImage"
               onChange={handleFileChange}
-              accept="image/png, image/jpeg, image/jpg"
+              accept="image/png, image/jpeg, image/jpg, video/*"
             />
           </div>
           <DialogFooter>

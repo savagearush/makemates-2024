@@ -7,6 +7,9 @@ import { AuthContext } from "@/context/AuthContext";
 import { SendIcon } from "lucide-react";
 import { Comments } from "./Comments";
 import { API_ENDPOINT } from "@/axios.config";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as unlikeIcon } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as likeIcon } from "@fortawesome/free-solid-svg-icons";
 
 function Post({
   caption,
@@ -104,14 +107,19 @@ function Post({
         <Image
           className="w-auto"
           src={mediaUrl}
-          width={400}
-          height={400}
+          width={0}
+          height={0}
+          sizes="100vw"
           alt="user post"
         />
       </div>
       <div className="flex p-2 gap-2">
         <Button variant={"ghost"} onClick={handlePostLike}>
-          {isPostLiked ? "Liked" : "Like"}
+          {isPostLiked ? (
+            <FontAwesomeIcon icon={unlikeIcon} />
+          ) : (
+            <FontAwesomeIcon color="red" icon={likeIcon} />
+          )}
         </Button>
         <Button variant={"ghost"} onClick={() => setCommentBox(!commentBox)}>
           5 Comments
