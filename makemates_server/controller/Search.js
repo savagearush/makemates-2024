@@ -2,19 +2,22 @@ import DB from "../db/db.js";
 
 export const getUserProfile = (req, res) => {
   const userId = req.body.id;
-  DB.query("SELECT * FROM users WHERE id = ?", [userId], (err, result) => {
+
+  const query1 = `SELECT u.id, u.name, u.dob, pi.image_url FROM users u JOIN profileimages as pi ON u.img = pi.id WHERE u.id = ? AND pi.currentImg = 1;`;
+  DB.query(query1, [userId], (err, result) => {
     if (err) return res.status(401).send(err);
+
     if (result.length > 0) {
-      const { password, ...other } = result[0];
-      
-      let query = `SELECT p.id AS postId, u.id, u.name, p.desc, pm.media_url, 
+      const userData = result[0];
+
+      let query2 = `SELECT p.id AS postId, u.id, u.name, p.desc, pm.media_url, 
         p.date, pis.image_url AS profileImage FROM posts p JOIN post_media pm 
         ON p.id = pm.post_id JOIN users u ON u.id = p.user_id 
         LEFT JOIN profileimages pis ON u.img = pis.id WHERE p.user_id = ? ORDER BY date DESC;`;
 
-      DB.query(query, [userId], (err, result) => {
+      DB.query(query2, [userId], (err, result) => {
         if (err) return res.status(401).send(err);
-        return res.status(200).send({ userData: other, userPost: result });
+        return res.status(200).send({ userData, userPost: result });
       });
     } else {
       return res.status(204).send("User not Found");

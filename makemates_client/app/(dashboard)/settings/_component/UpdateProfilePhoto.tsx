@@ -25,6 +25,7 @@ import axios from "axios";
 import { Progress } from "@/components/ui/progress";
 import toast from "react-hot-toast";
 import Compressor from "compressorjs";
+import { API_ENDPOINT } from "@/axios.config";
 
 function UpdateProfilePhoto({ value }: { value: string }) {
   const [image, setImage] = useState<any>("");
@@ -127,7 +128,7 @@ function UpdateProfilePhoto({ value }: { value: string }) {
 
               axios
                 .post(
-                  `${process.env.API_ENDPOINT}/user/setProfilePic`,
+                  `${API_ENDPOINT}/user/setProfilePic`,
                   {
                     profileImgUrl: downloadURL,
                   },

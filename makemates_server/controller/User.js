@@ -40,7 +40,8 @@ export function login(req, res) {
               .cookie("x-auth-token", token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
-                // sameSite: "None",
+                sameSite:
+                  process.env.NODE_ENV === "production" ? "None" : "Lax",
               })
               .status(200)
               .send({ id: user.id });
@@ -65,51 +66,51 @@ export function register(req, res) {
     [req.body.email],
     (err, result) => {
       if (err) return res.status(400).send(err);
-
       if (result.length) {
         return res.status(401).send("User already exist.");
+      } else {
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(req.body.password, salt, (err, hash) => {
+            const newUser = {
+              name: req.body.name,
+              email: req.body.email,
+              password: hash,
+              gender: req.body.gender,
+              dob: `${req.body.day} ${req.body.month} ${req.body.year}`,
+            };
+
+            DB.query(
+              "INSERT INTO users (name, email, password, gender, dob) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%d %M %Y'))",
+              [...Object.values(newUser)],
+              (err, result) => {
+                if (err) return res.status(400).send(err);
+
+                const token = jwt.sign(
+                  { id: result.insertId },
+                  process.env.JWT_PRIVATE_KEY,
+                  {
+                    expiresIn: "24hr",
+                  }
+                );
+
+                console.log("Account Created...");
+
+                return res
+                  .cookie("x-auth-token", token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production",
+                    sameSite:
+                      process.env.NODE_ENV === "production" ? "None" : "Lax",
+                  })
+                  .status(200)
+                  .send({ id: result.insertId });
+              }
+            );
+          });
+        });
       }
     }
   );
-
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(req.body.password, salt, (err, hash) => {
-      const newUser = {
-        name: req.body.name,
-        email: req.body.email,
-        password: hash,
-        gender: req.body.gender,
-        dob: `${req.body.day} ${req.body.month} ${req.body.year}`,
-      };
-
-      DB.query(
-        "INSERT INTO users (name, email, password, gender, dob) VALUES (?, ?, ?, ?, STR_TO_DATE(?, '%d %M %Y'))",
-        [...Object.values(newUser)],
-        (err, result) => {
-          if (err) return res.status(400).send(err);
-
-          const token = jwt.sign(
-            { id: result.insertId },
-            process.env.JWT_PRIVATE_KEY,
-            {
-              expiresIn: "24hr",
-            }
-          );
-
-          console.log("Account Created...");
-
-          return res
-            .cookie("x-auth-token", token, {
-              httpOnly: true,
-              secure: process.env.NODE_ENV === "production",
-              sameSite: "None",
-            })
-            .status(200)
-            .send({ id: result.insertId });
-        }
-      );
-    });
-  });
 }
 
 export async function getUserData(req, res) {
