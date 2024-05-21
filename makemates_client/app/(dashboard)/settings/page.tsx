@@ -58,10 +58,10 @@ function Page() {
         <UpdateEmail value={data.email} />
         <UpdatePassword value={data.password} />
         <UpdateBirthday value={data.dob} />
-        <UpdateMobile value={data.mobile_number} />
-        <UpdateCity value={data.city} />
-        <UpdateState value={data.state} />
-        <UpdateCountry value={data.country} />
+        {/* <UpdateMobile value={data.mobile_number} /> */}
+        {/* <UpdateCity value={data.city} /> */}
+        {/* <UpdateState value={data.state} /> */}
+        {/* <UpdateCountry value={data.country} /> */}
       </div>
     </div>
   );
