@@ -21,34 +21,6 @@ import {
 import axios from "axios";
 import { API_ENDPOINT } from "@/axios.config";
 
-const leftSidebarNavigations = [
-  {
-    name: "Mate",
-    href: "/mates",
-    icon: <FaUserFriends className="text-[#003789]" />,
-  },
-  {
-    name: "Messengers",
-    href: "/messenger",
-    icon: <BsMessenger className="text-[#003789]" />,
-  },
-  {
-    name: "Liked",
-    href: "/liked",
-    icon: <AiFillLike className="text-[#003789]" />,
-  },
-  {
-    name: "Posts",
-    href: "/posts",
-    icon: <TbHttpPost className="text-[#003789]" />,
-  },
-  {
-    name: "Saved",
-    href: "/saved",
-    icon: <FaBookmark className="text-[#003789]" />,
-  },
-];
-
 function Page() {
   const friendsList = useFriendList();
 
@@ -101,21 +73,15 @@ function Page() {
 
         <div className="flex p-2 bg-slate-50 rounded-md shadow-lg tems-center justify-start gap-5">
           <ul className="flex flex-col gap-3 w-full">
-            {leftSidebarNavigations.map(({ name, icon, href }) => {
-              return (
-                <li
-                  key={name}
-                  className="w-full p-1 hover:bg-purple-100 rounded-md"
-                >
-                  <Link
-                    href={href}
-                    className="flex gap-3 items-center justify-start font-medium"
-                  >
-                    {icon} {name}
-                  </Link>
-                </li>
-              );
-            })}
+            <li className="w-full p-1 hover:bg-purple-100 rounded-md">
+              <a
+                href="https://codetonic.netlify.app/login"
+                target="_blank"
+                className="flex gap-3 items-center justify-start font-medium"
+              >
+                <BsMessenger className="text-[#003789]" /> Codetonic Messenger
+              </a>
+            </li>
           </ul>
         </div>
       </div>

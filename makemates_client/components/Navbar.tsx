@@ -38,21 +38,24 @@ function Navbar() {
   const navigation = [
     {
       name: "feed",
-      Icon: <TiHome className="text-[#001C43] w-4 h-4 " />,
-      Data: (
-        <div className="text-black p-3">
-          <h3>Working</h3>
-        </div>
+      Icon: (
+        <Link href="/feed">
+          <TiHome className="text-[#001C43] w-4 h-4 " />
+        </Link>
       ),
     },
-    {
-      name: "messenger",
-      Icon: <BsMessenger className="text-[#001C43] w-4 h-4" />,
-    },
-    {
-      name: "notifications",
-      Icon: <BiSolidBell className="text-[#001C43] w-4 h-4" />,
-    },
+    // {
+    //   name: "messenger",
+    //   Icon: (
+    //     <Link href="/chat">
+    //       <BsMessenger className="text-[#001C43] w-4 h-4" />
+    //     </Link>
+    //   ),
+    // },
+    // {
+    //   name: "notifications",
+    //   Icon: <BiSolidBell className="text-[#001C43] w-4 h-4" />,
+    // },
     {
       name: "setting",
       Icon: <FaUserAlt className="text-[#001C43] w-4 h-4" />,
@@ -73,18 +76,18 @@ function Navbar() {
             </div>
           </div>
           <ul className="space-y-2">
-            <li className="cursor-pointer flex items-center justify-between p-2 hover:bg-purple-100 rounded-md">
+            {/* <li className="cursor-pointer flex items-center justify-between p-2 hover:bg-purple-100 rounded-md">
               <Link href="/" className="font-medium text-md">
                 Reactions
               </Link>
               <MdEmojiEmotions className="text-xl text-blue-600" />
-            </li>
-            <li className="cursor-pointer flex items-center justify-between p-2 hover:bg-purple-100 rounded-md">
+            </li> */}
+            {/* <li className="cursor-pointer flex items-center justify-between p-2 hover:bg-purple-100 rounded-md">
               <Link href="/" className="font-medium text-md">
                 Comments
               </Link>
               <FaComments className="text-xl text-blue-600" />
-            </li>
+            </li> */}
             <li className="cursor-pointer flex items-center justify-between p-2 hover:bg-purple-100 rounded-md">
               <Link href="/settings" className="font-medium text-md">
                 Settings
@@ -116,14 +119,14 @@ function Navbar() {
       </div>
       <div className="flex-1 flex items-center justify-center">
         <NavigationMenu>
-          <NavigationMenuList className="flex gap-8">
+          <NavigationMenuList className="flex gap-8 ">
             {navigation.map(({ name, Icon, Data }) => {
               return (
                 <NavigationMenuItem key={name}>
                   <NavigationMenuTrigger className="cursor-pointer shadow-lg bg-white rounded-full w-8 h-8 flex items-center justify-center">
                     {Icon}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="absolute bg-white mt-4 rounded-md w-full">
+                  <NavigationMenuContent className="absolute  bg-white mt-4 rounded-md w-[200px]">
                     {Data}
                   </NavigationMenuContent>
                 </NavigationMenuItem>

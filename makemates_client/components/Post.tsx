@@ -116,13 +116,13 @@ function Post({
       <div className="flex p-2 gap-2">
         <Button variant={"ghost"} onClick={handlePostLike}>
           {isPostLiked ? (
-            <FontAwesomeIcon icon={unlikeIcon} />
-          ) : (
             <FontAwesomeIcon color="red" icon={likeIcon} />
+          ) : (
+            <FontAwesomeIcon icon={unlikeIcon} />
           )}
         </Button>
         <Button variant={"ghost"} onClick={() => setCommentBox(!commentBox)}>
-          5 Comments
+          Comments
         </Button>
       </div>
 

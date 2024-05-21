@@ -56,7 +56,7 @@ export function Comments({ postId }: { postId: any }) {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col px-2 text-sm">
         {allComments &&
           allComments.map((cmnt: any) => {
             return (
