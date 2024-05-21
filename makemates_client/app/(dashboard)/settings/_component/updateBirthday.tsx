@@ -1,3 +1,4 @@
+import { API_ENDPOINT } from "@/axios.config";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import moment from "moment";
@@ -16,7 +17,7 @@ function UpdateBirthday({ value }: { value: string }) {
   const handleUpdate = async () => {
     try {
       const response = await axios.post(
-        `${process.env.API_ENDPOINT}/user/update`,
+        `${API_ENDPOINT}/user/update`,
         { key: "birthday", value: input },
         { withCredentials: true }
       );

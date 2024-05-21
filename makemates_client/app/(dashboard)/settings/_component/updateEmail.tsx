@@ -1,3 +1,4 @@
+import { API_ENDPOINT } from "@/axios.config";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import React, { useRef, useState } from "react";
@@ -13,7 +14,7 @@ function UpdateEmail({ value }: { value: string }) {
   const handleUpdate = async () => {
     try {
       const response = await axios.post(
-        `${process.env.API_ENDPOINT}/user/update`,
+        `${API_ENDPOINT}/user/update`,
         { key: "email", value: input },
         { withCredentials: true }
       );
