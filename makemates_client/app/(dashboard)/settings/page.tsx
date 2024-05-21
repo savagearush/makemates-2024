@@ -11,6 +11,9 @@ import UpdateMobile from "./_component/updateMobile";
 import UpdateProfilePhoto from "./_component/UpdateProfilePhoto";
 import Image from "next/image";
 import { AuthContext } from "@/context/AuthContext";
+import UpdateCity from "./_component/updateCity";
+import UpdateState from "./_component/updateState";
+import UpdateCountry from "./_component/updateCountry";
 
 function Page() {
   const { currentUser }: any = useContext(AuthContext);
@@ -56,9 +59,9 @@ function Page() {
         <UpdatePassword value={data.password} />
         <UpdateBirthday value={data.dob} />
         <UpdateMobile value={data.mobile_number} />
-        {/* <UpdateCity value={data.city} /> */}
-        {/* <UpdateState value={data.state} /> */}
-        {/* <UpdateCountry value={data.country} /> */}
+        <UpdateCity value={data.city} />
+        <UpdateState value={data.state} />
+        <UpdateCountry value={data.country} />
       </div>
     </div>
   );
