@@ -1,8 +1,7 @@
 import jwt from "jsonwebtoken";
 
 function auth(req, res, next) {
-  const token = req.cookies["x-auth-token"];  
-  console.log("JWT: ", token);
+  const token = req.cookies["x-auth-token"];
   if (token !== undefined && token !== null) {
     jwt.verify(token, process.env.JWT_PRIVATE_KEY, (err, decoded) => {
       if (err) {

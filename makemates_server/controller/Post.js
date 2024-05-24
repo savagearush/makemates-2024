@@ -1,4 +1,5 @@
 import DB from "../db/db.js";
+import { logger } from "../winston.js";
 
 export const addPost = (req, res) => {
   const { desc, imgUrl } = req.body;
@@ -25,6 +26,7 @@ export const addPost = (req, res) => {
 
 export const getUserPosts = (req, res) => {
   const { userId } = req.params;
+
   let query = `SELECT p.id AS postId, u.id, u.name, p.desc, pm.media_url, 
     p.date, pis.image_url AS profileImage FROM posts p JOIN post_media pm 
     ON p.id = pm.post_id JOIN users u ON u.id = p.user_id 
@@ -44,11 +46,10 @@ export const likeThePost = (req, res) => {
   const { postId } = req.body;
 
   let query = "INSERT INTO likes (`post_id`, `user_id`) VALUES (?, ?)";
-  console.log(id, postId);
 
-  DB.query(query, [postId, id], (err, result) => {
+  DB.query(query, [postId, id], (err) => {
     if (err) {
-      console.log(err);
+      logger.error("Post hasn't been liked...", err);
     }
     return res.status(200).send(true);
   });
@@ -58,14 +59,12 @@ export const unLikeThePost = (req, res) => {
   const { id } = req.user;
   const { postId } = req.body;
 
-  console.log(id, postId);
   let query = " DELETE FROM likes WHERE user_id = ? AND post_id = ?";
 
-  DB.query(query, [id, postId], (err, result) => {
+  DB.query(query, [id, postId], (err) => {
     if (err) {
-      console.log(err);
+      logger.error(err);
     }
-    console.log(result);
     return res.status(200).send(true);
   });
 };
@@ -76,7 +75,7 @@ export const checkPostLikeStatus = (req, res) => {
     [req.user.id, req.body.postId],
     (err, result) => {
       if (err) {
-        console.log(err);
+        logger.error(err);
       }
       if (result.length > 0) {
         return res.status(200).send(true);
@@ -90,8 +89,7 @@ export const postNewComment = (req, res) => {
   DB.query(
     "INSERT INTO comments (`user_id`, `post_id`, `desc`) VALUES(?, ?, ?)",
     [req.user.id, req.body.postId, req.body.desc],
-    (err, result) => {
-      console.log(result);
+    (err) => {
       if (err) return res.status(400).send(err);
       return res.status(200).send("success");
     }
@@ -99,7 +97,6 @@ export const postNewComment = (req, res) => {
 };
 
 export const getPostComments = (req, res) => {
-  console.log(req.params);
   const { postId } = req.params;
 
   const query =
@@ -109,7 +106,6 @@ export const getPostComments = (req, res) => {
     if (err) {
       return res.status(400).send(err);
     }
-    console.log(result);
     return res.status(200).send(result);
   });
 };

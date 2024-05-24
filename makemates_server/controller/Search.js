@@ -34,8 +34,6 @@ export const checkFollowed = (req, res) => {
     [userId, friendId],
     (err, result) => {
       if (err) return res.status(401).send(err);
-      console.log(result);
-      result;
       if (result.length > 0) {
         return res.status(200).send("USER_FOUND");
       } else {
@@ -52,7 +50,6 @@ export const searchUser = (req, res) => {
 
   DB.query(query, [`%${keyword.toLowerCase()}%`], (err, result) => {
     if (err) return res.status(401).send(err);
-    console.log(result);
     return res.status(200).send(result);
   });
 };

@@ -7,7 +7,9 @@ import Post from "./routes/Post.js";
 import Search from "./routes/Search.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
-import auth from "./middleware/auth.js";
+import { logger } from "./winston.js";
+import compression from "compression";
+import helmet from "helmet";
 const app = express();
 dotenv.config();
 
@@ -18,7 +20,12 @@ app.use(
   })
 );
 
-app.use(morgan("dev"));
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"));
+}
+
+app.use(compression);
+app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,12 +35,8 @@ app.use("/user", User);
 app.use("/posts", Post);
 app.use("/search", Search);
 
-app.get("/check", auth, (req, res) => {
-  res.send("Check Pass");
-});
-
 const PORT = process.env.PORT || 2000;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
+  logger.info(`Server listening on ${PORT}`);
 });

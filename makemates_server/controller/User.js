@@ -23,8 +23,6 @@ export function login(req, res) {
             return res.status(400).send(err);
           }
 
-          console.log("Valid...", valid);
-
           if (valid) {
             const token = jwt.sign(
               { id: user.id },
@@ -33,8 +31,6 @@ export function login(req, res) {
                 expiresIn: "24hr",
               }
             );
-
-            console.log("Correct password valid");
 
             return res
               .cookie("x-auth-token", token, {
@@ -92,9 +88,6 @@ export function register(req, res) {
                     expiresIn: "24hr",
                   }
                 );
-
-                console.log("Account Created...");
-
                 return res
                   .cookie("x-auth-token", token, {
                     httpOnly: true,
@@ -121,7 +114,6 @@ export async function getUserData(req, res) {
     "SELECT u.id, u.name, u.email, p.image_url FROM users u LEFT JOIN profileimages p ON u.img = p.id WHERE u.id = ?";
 
   DB.query(query, [id], (err, result) => {
-    console.log(result);
     if (err) return res.status(401).send(err);
     if (result.length) {
       result[0].password = "************";
