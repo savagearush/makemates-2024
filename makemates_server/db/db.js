@@ -1,5 +1,6 @@
 import mysql from "mysql2";
 import dotenv from "dotenv";
+import { logger } from "../winston.js";
 dotenv.config();
 
 const db = mysql.createConnection({
@@ -19,7 +20,7 @@ const db = mysql.createConnection({
 
 db.connect(function (err) {
   if (err) throw err;
-  console.log("DB Connected!");
+  logger.info("DB Connected");
 });
 
 export default db;
