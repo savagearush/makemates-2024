@@ -21,7 +21,9 @@ function Page() {
   const [isFriend, setIsFriend] = useState<boolean>(false);
 
   useEffect(() => {
+    
     try {
+      
       const getUserProfile = async () => {
         const response = await axios.post(
           `${API_ENDPOINT}/search/profile`,

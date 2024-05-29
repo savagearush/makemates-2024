@@ -60,8 +60,8 @@ function Navbar() {
       name: "setting",
       Icon: <FaUserAlt className="text-[#001C43] w-4 h-4" />,
       Data: (
-        <div className="text-black p-3 relative">
-          <div className="flex p-2 rounded-md shadow-lg bg-slate-50 items-center justify-start gap-5">
+        <div className="text-black p-3 relative shadow-lg">
+          <div className="flex p-4 rounded-md bg-slate-50 items-center justify-start gap-5">
             <Image
               src="/avatar.png"
               className="rounded-full"

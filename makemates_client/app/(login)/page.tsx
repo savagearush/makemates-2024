@@ -7,6 +7,7 @@ import InputWithLabel from "./_component/InputWithLabel";
 import { Button } from "@/components/ui/button";
 import { AuthContextType } from "@/typings";
 import { AuthContext } from "@/context/AuthContext";
+import Head from "next/head";
 
 function Login() {
   const [inputs, setInputs] = useState({
@@ -28,6 +29,9 @@ function Login() {
 
   return (
     <div>
+      <Head>
+        <title>Makemates - Login</title>
+      </Head>
       <Image
         src="/logo-light.png"
         width="240"

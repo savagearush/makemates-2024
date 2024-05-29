@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import { logger } from "./winston.js";
 import compression from "compression";
 import helmet from "helmet";
+
 const app = express();
 dotenv.config();
 
@@ -24,7 +25,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-app.use(compression);
+app.use(compression());
 app.use(helmet());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));

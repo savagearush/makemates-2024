@@ -3,7 +3,8 @@ import DB from "../db/db.js";
 export const getUserProfile = (req, res) => {
   const userId = req.body.id;
 
-  const query1 = `SELECT u.id, u.name, u.dob, pi.image_url FROM users u JOIN profileimages as pi ON u.img = pi.id WHERE u.id = ? AND pi.currentImg = 1;`;
+  const query1 = `SELECT u.id, u.name, u.email, u.gender, u.dob, pi.image_url from users u LEFT JOIN profileimages pi ON pi.user_id = u.id WHERE u.id=? LIMIT 1;`;
+  
   DB.query(query1, [userId], (err, result) => {
     if (err) return res.status(401).send(err);
 
@@ -23,6 +24,7 @@ export const getUserProfile = (req, res) => {
       return res.status(204).send("User not Found");
     }
   });
+
 };
 
 export const checkFollowed = (req, res) => {
