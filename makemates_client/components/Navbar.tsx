@@ -110,7 +110,7 @@ function Navbar() {
   ];
 
   return (
-    <div className=" w-[1200px] shadow-[0px_2px_15px_0px_#001C43] h-[50px] px-2 rounded-full  text-white bg-[#003789] flex items-center justify-center gap-32">
+    <div className=" w-[1200px] shadow-[0px_2px_10px_0px_#001C43] h-[50px] px-2 rounded-full  text-white bg-[#003789] flex items-center justify-center gap-32">
       <div className="flex-1 flex items-center justify-center">
         <Link href="/feed" className={`text-xl font-extrabold`}>
           Makemates

@@ -25,6 +25,8 @@ function Page() {
   const friendsList = useFriendList();
 
   const { currentUser, setCurrentUser }: any = useContext(AuthContext);
+  // console.log(currentUser)
+
 
   useEffect(() => {
     const getUserData = async () => {
@@ -32,24 +34,26 @@ function Page() {
         withCredentials: true,
       });
       window.localStorage.setItem("currentUser", JSON.stringify(data));
-      setCurrentUser((prev: any) => ({
-        ...prev,
-        id: data.id,
-        name: data.name,
-        img: data.image_url,
-      }));
+      setCurrentUser(data);
     };
 
     getUserData();
   }, [setCurrentUser]);
 
+  useEffect(() => {
+    if(currentUser) {
+      const firstName = currentUser.name.split(" ")[0];
+      document.title = firstName + "'s feed"
+    }
+  }, [currentUser])
+
   return currentUser ? (
     <>
       <div className="fixed top-[100px] w-[300px] flex flex-col gap-4">
         <div className="flex p-2 rounded-md shadow-lg bg-slate-50 items-center justify-start gap-5">
-          {currentUser.img !== null ? (
+          {currentUser.image_url !== null ? (
             <Image
-              src={currentUser.img}
+              src={currentUser.image_url}
               className="rounded-full shadow-md"
               width="40"
               height="40"
@@ -94,11 +98,12 @@ function Page() {
         <div>
           <h4 className="font-semibold text-sky-900">Followers :</h4>
           <div className="flex bg-slate-50 gap-2 shadow-md rounded-md flex-col mt-2 w-full ">
+            
             {friendsList.length > 0 ? (
               friendsList.map((friend: any) => {
                 return (
                   <HoverCard key={`${friend.follow_id}-${friend.follower_id}`}>
-                    <HoverCardTrigger className="flex items-center rounded-md">
+                    <HoverCardTrigger className="flex items-center rounded-md" asChild >
                       <div className="flex justify-between items-center p-2 w-full rounded-mdcursor-pointer">
                         <div className="flex gap-2 items-center">
                           {friend.profileImage !== null ? (

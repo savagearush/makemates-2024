@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import FileInput from "./FileInput";
 
 import {
@@ -26,8 +26,11 @@ import { Progress } from "@/components/ui/progress";
 import toast from "react-hot-toast";
 import Compressor from "compressorjs";
 import { API_ENDPOINT } from "@/axios.config";
+import { AuthContext } from "@/context/AuthContext";
 
 function UpdateProfilePhoto({ value }: { value: string }) {
+  const {currentUser}:any  = useContext(AuthContext)
+  
   const [image, setImage] = useState<any>("");
   const [currentPage, setCurrentPage] = useState("choose-img");
   const [imgAfterCrop, setImgAfterCrop] = useState("");
@@ -105,10 +108,9 @@ function UpdateProfilePhoto({ value }: { value: string }) {
       success(result: any) {
         const storage = getStorage(app);
         const fileName =
-          result.name + Date.now() + "." + result.type.split("/")[1];
+          currentUser.id + Date.now().toString() + "." + result.type.split("/")[1];
         const storageRef = ref(storage, fileName);
         const uploadTask = uploadBytesResumable(storageRef, result);
-
         uploadTask.on(
           "state_changed",
           (snapshot) => {

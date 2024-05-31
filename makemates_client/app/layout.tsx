@@ -25,6 +25,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+    <link
+      rel="icon"
+      href="/makemates_client/public/favicon.ico"
+      type="image/png"
+      sizes="any"
+    />
+
       <body className={`${inter.className} bg-slate-100`}>
         <AuthContextProvider>
           <Toaster position="bottom-center" />

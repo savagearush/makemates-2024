@@ -27,7 +27,6 @@ function Posts({ userId }: { userId: number }) {
     return <span>Error: {error.message}</span>;
   }
 
-  console.log(data);
   return (
     <div className="w-full flex flex-col gap-4">
       {data.map((post: any) => {

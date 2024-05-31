@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Signup from "./_component/signup";
 import InputWithLabel from "./_component/InputWithLabel";
@@ -9,6 +9,7 @@ import { AuthContextType } from "@/typings";
 import { AuthContext } from "@/context/AuthContext";
 import Head from "next/head";
 
+ 
 function Login() {
   const [inputs, setInputs] = useState({
     email: "",
@@ -27,11 +28,12 @@ function Login() {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  useEffect(() => {
+    document.title = "Makemates | Login"
+  }, [])
+
   return (
     <div>
-      <Head>
-        <title>Makemates - Login</title>
-      </Head>
       <Image
         src="/logo-light.png"
         width="240"
