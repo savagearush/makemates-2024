@@ -60,7 +60,6 @@ function Post({
   };
 
   useEffect(() => {
-    console.log("Inside UseEffect");
     const checkLikeStatus = async function () {
       const response = await axios.post(
         `${API_ENDPOINT}/posts/likedPost`,
@@ -70,7 +69,6 @@ function Post({
       setIsPostLiked(response.data);
     };
     checkLikeStatus();
-    console.log(isPostLiked);
   }, [isPostLiked, postId]);
 
   return (

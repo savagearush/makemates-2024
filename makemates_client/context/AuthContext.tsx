@@ -17,22 +17,33 @@ export default function AuthContextProvider({
   const router = useRouter();
 
   const userSignUp = async (inputs: SignUpInputType) => {
-    try {
-      const response = await CreateNewUser(inputs);
-      console.log("SignUp Wala : ", response);
-      router.push("/feed");
-    } catch (error: any) {
-      toast.error(error.response.data);
-    }
+    toast.promise(CreateNewUser(inputs), {
+      loading: "Creating New Account....",
+      success: res => {
+          // Redirect to the feed page upon successful Registration
+          router.push("/feed");
+          return `Successful`;
+      },
+      error: res => {
+          // Display the error message from the response data
+          return `${res.response.data}`;
+      },
+  });
   };
 
   const userLogin = async (inputs: LoginInputType) => {
-    try {
-      const response = await SignInUser(inputs);
-      router.push("/feed");
-    } catch (error: any) {
-      toast.error(error.response.data);
-    }
+    toast.promise(SignInUser(inputs), {
+      loading: "Logging....",
+      success: res => {
+          // Redirect to the feed page upon successful login
+          router.push("/feed");
+          return `Login Successful`;
+      },
+      error: res => {
+          // Display the error message from the response data
+          return `${res.response.data}`;
+      },
+  });
   };
 
   const userLogout = async () => {
@@ -42,12 +53,19 @@ export default function AuthContextProvider({
   };
 
   // this will check on page reload if user is saved in LS
+  // Check on page reload if user is saved in local storage
   useEffect(() => {
     const loggedUser = window.localStorage.getItem("currentUser");
     if (loggedUser) {
-      setCurrentUser(JSON.parse(loggedUser));
+      const user = JSON.parse(loggedUser);
+      setCurrentUser(user);
     }
   }, []);
+
+  // // Use this effect to track changes in currentUser
+  // useEffect(() => {
+  //   console.log(currentUser); // This will show the updated value
+  // }, [currentUser]);
 
   return (
     <AuthContext.Provider

@@ -82,7 +82,7 @@ function Page() {
     }
   };
 
-  console.log(posts);
+
   if (user) {
     return (
       <div className="flex w-[1200px] justify-between items-center relative pl-4">
