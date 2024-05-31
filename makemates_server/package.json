@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "pm2 start index.js",
+    "start": "node index",
     "dev": "nodemon"
   },
   "keywords": [],
