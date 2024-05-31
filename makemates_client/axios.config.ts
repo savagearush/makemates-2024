@@ -3,7 +3,6 @@ import { LoginInputType, SignUpInputType } from "./typings";
 
 export const API_ENDPOINT = process.env.NEXT_PUBLIC_API_ENDPOINT;
 
-console.log("API_ENDPOINT", API_ENDPOINT);
 export async function CreateNewUser(inputData: SignUpInputType) {
   const response = await axios.post(
     API_ENDPOINT + "/user/register",
@@ -17,7 +16,6 @@ export async function SignInUser(inputData: LoginInputType) {
   const response = await axios.post(API_ENDPOINT + "/user/login", inputData, {
     withCredentials: true,
   });
-  console.log(response);
   return response.data;
 }
 export async function getUserDataById() {
