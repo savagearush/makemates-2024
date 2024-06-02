@@ -25,10 +25,10 @@
     "morgan": "^1.10.0",
     "mysql2": "^3.9.7",
     "pm2": "^5.4.0",
-    "winston": "^3.13.0"
+    "winston": "^3.13.0",
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
-    "dotenv": "^16.4.5",
     "nodemon": "^3.0.3"
   },
   "description": ""
