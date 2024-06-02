@@ -5,9 +5,9 @@ import morgan from "morgan";
 import User from "./routes/User.js";
 import Post from "./routes/Post.js";
 import Search from "./routes/Search.js";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { logger } from "./winston.js";
+import dotenv from "dotenv";
 import compression from "compression";
 import helmet from "helmet";
 
