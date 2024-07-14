@@ -1,57 +1,36 @@
-# Makemates - Social Media Application
-!Makemates Logo
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-Makemates is a social media application built with Next.js, Node.js, and MySQL. It provides users with a seamless experience for sharing posts, following other users, and searching across the app. With advanced caching technology and robust security measures, Makemates ensures high performance and data protection.
+## Getting Started
 
-## Prerequisites
-- ✅ TypeScript
-- ✅ NextJS
-- ✅ NodeJS
-- ✅ MySQL
-- ✅ Windows, macOS, or Linux operating system
+First, run the development server:
 
-## Features
-- 🌟 Feed Post: Share your thoughts, photos, and updates with your followers.
-- 🌟 Follow Users: Stay connected with friends and discover new content by following other users.
-- 🌟 User Search: Easily find other users within the app.
-- 🌟 Next.js Caching: Achieve lightning-fast performance using Next.js’s built-in caching capabilities.
-- 🌟 High Security Authentication: Protect user data with robust authentication mechanisms.
-- 🌟 Secure Backend System: Ensure data integrity and prevent unauthorized access.
-
-## Installation
-Clone the repository:
-
-```
-git clone https://github.com/savagearush/makemates-2024
-```
-Navigate to the project directory:
-cd makemates-2024
-
-makemates_client ( (Directory) for Client Side
-makemates_server (Directory) for Server Side
-
-#### Take each directory as different service. 
-##### For running client
-
-```
-cd makemates_client
-npm install
+```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
-##### For running server
 
-```
-cd makemates_server
-npm install
-npm start
-```
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Open your browser and visit http://localhost:3000
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-### Contributing
-Contributions are welcome! If you find a bug or have an idea for an enhancement, please open an issue or submit a pull request.
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-### License
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Learn More
 
-Thank you for choosing Makemates! We hope you enjoy using our social media platform. If you have any questions or need assistance, feel free to reach out to our support team. Happy connecting! 😊🚀
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
